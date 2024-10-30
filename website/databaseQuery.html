@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple JavaScript Example</title>
+</head>
+<body>
+    <h1>Simple Addition Form</h1>
+    <form id="additionForm">
+        <label for="number1">Number 1:</label>
+        <input type="text" id="number1" name="number1"><br><br>
+        
+        <label for="number2">Number 2:</label>
+        <input type="text" id="number2" name="number2"><br><br>
+        
+        <button type="button" onclick="dbquery()">Add Numbers</button>
+    </form>
+    
+    <h2 id="result"></h2>
+
+    <script>
+        function dbquery() {
+const mysql = require('mysql');
+
+// Create a connection to the database
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'yourUrootsername',
+  password: 'Qwer1234!',
+  database: 'sql_first'
+});
+
+// Connect to the database
+connection.connect((err) => {
+  if (err) {
+    console.error('Error connecting: ' + err.stack);
+    return;
+  }
+  
+  console.log('Connected as id ' + connection.threadId);
+
+  // Run a SQL query
+  const query = 'SELECT * FROM item';
+  connection.query(query, (error, results, fields) => {
+    if (error) throw error;
+    console.log('Results: ', results);
+
+    // Close the connection
+    connection.end((err) => {
+      if (err) {
+        console.error('Error ending the connection: ' + err.stack);
+        return;
+      }
+      console.log('Connection ended');
+    });
+  });
+});
+
+        }
+    </script>
+</body>
+</html>

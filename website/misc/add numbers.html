@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple JavaScript Example</title>
+</head>
+<body>
+    <h1>Simple Addition Form</h1>
+    <form id="additionForm">
+        <label for="number1">Number 1:</label>
+        <input type="text" id="number1" name="number1"><br><br>
+        
+        <label for="number2">Number 2:</label>
+        <input type="text" id="number2" name="number2"><br><br>
+        
+        <button type="button" onclick="addNumbers()">Add Numbers</button>
+    </form>
+    
+    <h2 id="result"></h2>
+
+    <script>
+        function addNumbers() {
+            // Get the values from the input fields
+            const num1 = document.getElementById('number1').value;
+            const num2 = document.getElementById('number2').value;
+
+            // Convert the input values to numbers
+            const number1 = parseFloat(num1);
+            const number2 = parseFloat(num2);
+
+            // Check if the inputs are valid numbers
+            if (isNaN(number1) || isNaN(number2)) {
+                alert("Please enter valid numbers!");
+                return;
+            }
+
+            // Add the numbers
+            const sum = number1 + number2;
+
+            // Display the result
+            document.getElementById('result').innerText = "Result: " + sum;
+        }
+    </script>
+</body>
+</html>

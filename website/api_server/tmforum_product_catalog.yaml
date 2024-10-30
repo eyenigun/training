@@ -1,0 +1,121 @@
+openapi: 3.0.0
+info:
+  title: Product Catalog Management API
+  description: TMForum Product Catalog Management API
+  version: 1.0.0
+  contact:
+    name: TMForum
+    url: https://www.tmforum.org
+    email: info@tmforum.org
+servers:
+  - url: http://localhost:3333
+    description: Local server
+paths:
+  /productCatalog:
+    get:
+      summary: Retrieve a list of product catalogs
+      responses:
+        200:
+          description: A list of product catalogs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductCatalog'
+    post:
+      summary: Create a new product catalog
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductCatalog'
+      responses:
+        201:
+          description: The created product catalog
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCatalog'
+  /productCatalog/{id}:
+    get:
+      summary: Retrieve a product catalog by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: A product catalog
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCatalog'
+        404:
+          description: Product catalog not found
+    put:
+      summary: Update a product catalog by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductCatalog'
+      responses:
+        200:
+          description: The updated product catalog
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCatalog'
+        404:
+          description: Product catalog not found
+    delete:
+      summary: Delete a product catalog by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: No content
+        404:
+          description: Product catalog not found
+components:
+  schemas:
+    ProductCatalog:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        lifecycleStatus:
+          type: string
+        validFor:
+          type: object
+          properties:
+            startDateTime:
+              type: string
+              format: date-time
+            endDateTime:
+              type: string
+              format: date-time
+        version:
+          type: string
+      required:
+        - id
+        - name
